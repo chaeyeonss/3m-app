@@ -58,7 +58,6 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/ProfileBar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_weight="9"
@@ -105,25 +104,25 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/CameraCardTitle"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/arrow"
+                    app:srcCompat="@drawable/arrow_down"
                     android:background="@android:color/transparent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/CameraView"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_weight="9"
                 android:paddingTop="8dp"
-                android:src="@drawable/tabel_inside"/>
+                android:src="@drawable/tabel_inside"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/HomeSecondRow"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
@@ -131,7 +130,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/RecentCamera"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/NetworkCard"
                 app:layout_constraintHorizontal_weight="0.5"
@@ -171,7 +170,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/NetworkCard"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_weight="0.5"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -211,7 +210,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/CatchCard"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -266,7 +265,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/ReportedCard"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
