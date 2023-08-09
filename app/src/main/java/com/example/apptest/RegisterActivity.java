@@ -24,7 +24,6 @@ import org.json.JSONObject;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etId, etPass, etPassCheck, etAccount, etUnique, etName, etRegistration, etArea;
-    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_name);
         etRegistration = findViewById(R.id.et_registration);
         etArea = findViewById(R.id.et_area);
-        checkBox = findViewById(R.id.checkbox);
+        CheckBox checkBox = findViewById(R.id.checkbox);
 
         Button btnRegister = findViewById(R.id.btn_register);
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -104,35 +103,29 @@ public class RegisterActivity extends AppCompatActivity {
         String serverUrl = "https://your_server_url.com/api/signup";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, serverUrl, signUpData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // 서버 응답 처리
-                        try {
-                            boolean success = response.getBoolean("success");
-                            String message = response.getString("message");
+                response -> {
+                    // 서버 응답 처리
+                    try {
+                        boolean success = response.getBoolean("success");
+                        String message = response.getString("message");
 
-                            if (success) {
-                                // 회원가입 성공
-                                Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
-                                // 회원가입 성공 시의 처리 추가
-                            } else {
-                                // 회원가입 실패
-                                Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
-                                // 회원가입 실패 시의 처리 추가
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(RegisterActivity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
+                        if (success) {
+                            // 회원가입 성공
+                            Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                            // 회원가입 성공 시의 처리 추가
+                        } else {
+                            // 회원가입 실패
+                            Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                            // 회원가입 실패 시의 처리 추가
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(RegisterActivity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // 에러 처리
-                        Toast.makeText(RegisterActivity.this, "서버 통신 오류", Toast.LENGTH_SHORT).show();
-                    }
+                error -> {
+                    // 에러 처리
+                    Toast.makeText(RegisterActivity.this, "서버 통신 오류", Toast.LENGTH_SHORT).show();
                 });
 
         // 요청을 큐에 추가
