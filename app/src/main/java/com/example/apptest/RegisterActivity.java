@@ -1,10 +1,12 @@
 package com.example.apptest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,6 +43,11 @@ public class RegisterActivity extends AppCompatActivity {
         etArea = findViewById(R.id.et_area);
         CheckBox checkBox = findViewById(R.id.checkbox);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("회원가입");
+
         Button btnRegister = findViewById(R.id.btn_register);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +81,18 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private boolean isValidInput() {
