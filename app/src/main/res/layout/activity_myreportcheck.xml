@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="24dp"
     android:background="@drawable/main_background"
-    tools:context=".myreportcheck"
+    tools:context=".ActiveReports"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -39,19 +39,169 @@
     </ListView>
 
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/reported_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="147dp"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="10dp"
-        android:padding="18dp"
-        android:orientation="vertical"
-        android:background="@drawable/bg_reported_detail"
+        android:orientation="horizontal"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#EEF4FF"
         app:layout_constraintBottom_toTopOf="@+id/report_btns"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reported_table" ></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/reported_table">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="18dp"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:id="@+id/reported_detail_headers"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:weightSum="6">
+
+
+                <TextView
+                    android:id="@+id/reported_date_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="신고 접수일"
+                    android:textSize="14sp"
+                    android:textColor="#3674AD"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reported_address_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="주정차 위치"
+                    android:textSize="14sp"
+                    android:textColor="#3674AD"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reported_car_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:text="차량 번호"
+                    android:textSize="14sp"
+                    android:textColor="#3674AD"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reported_status_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="진행 상태"
+                    android:textSize="14sp"
+                    android:textColor="#3674AD"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reported_reward_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="리워드"
+                    android:textSize="14sp"
+                    android:textColor="#3674AD"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reported_detail_contents"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="31dp"
+                android:layout_weight="7"
+                android:weightSum="6">
+
+                <TextView
+                    android:id="@+id/reported_detail_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/reported_detail_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/reported_detail_car"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:weightSum="10"
+                        android:gravity="center_vertical"
+                        android:visibility="invisible">
+                        <ImageButton
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:tooltipText="차량 번호가 사진과 맞지 않다면"
+                            android:backgroundTint="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_for_car_warning_24" />
+                        <TextView
+                            android:id="@+id/reported_wrong_car"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="9"
+                            android:layout_marginStart="5dp"
+                            android:text="사진과 차량번호가 일치하지 않다면"
+                            android:textSize="10sp"
+                            android:textColor="#FF7456"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/reported_detail_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/reported_detail_reward"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/report_btns"
@@ -74,7 +224,8 @@
             android:paddingVertical="10dp"
             android:layout_marginEnd="5dp"
             android:text="신고 사진 확인"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:backgroundTint="#82C3FF"/>
 
         <Button
             android:id="@+id/btn_check_paper"
@@ -85,7 +236,8 @@
             android:paddingVertical="10dp"
             android:layout_marginStart="5dp"
             android:text="신고 접수서 확인"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:backgroundTint="#3674AD"/>
 
     </LinearLayout>
 
