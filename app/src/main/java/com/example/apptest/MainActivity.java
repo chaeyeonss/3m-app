@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        TextView cameraCardTitle = (TextView) findViewById(R.id.CameraCardTitle);
+        ImageView cameraView = (ImageView) findViewById(R.id.CameraView);
+
+
+
 
         CardView catchCard = findViewById(R.id.CatchCard);
         catchCard.setOnClickListener(new View.OnClickListener() {
