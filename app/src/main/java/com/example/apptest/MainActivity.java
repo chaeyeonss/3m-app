@@ -1,7 +1,9 @@
 package com.example.apptest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,5 +36,31 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        CardView catchCard = findViewById(R.id.CatchCard);
+        catchCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickCatchCard(view);
+            }
+        });
+
+        CardView reportedCard = findViewById(R.id.ReportedCard);
+        reportedCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickReportedCard(view);
+            }
+        });
+    }
+
+    public void clickCatchCard(View view){
+        Intent intent = new Intent(this, ActiveReports.class);
+        startActivity(intent);
+    }
+
+    public void clickReportedCard(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
