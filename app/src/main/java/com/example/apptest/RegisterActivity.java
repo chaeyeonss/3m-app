@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:{
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
 
                 return true;
@@ -119,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void sendSignUpDataToServer(JSONObject signUpData) {
         // 서버 URL 넣기
-        String serverUrl = "https://your_server_url.com/api/signup";
+        String serverUrl = "http://www.univ237.com/Login.php";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, serverUrl, signUpData,
                 response -> {
