@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class camera extends AppCompatActivity {
 
     // 서버 URL (가정)
-    private static final String SERVER_URL = "서버 url";
+    private static final String SERVER_URL = "http://www.univ237.com/Login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
