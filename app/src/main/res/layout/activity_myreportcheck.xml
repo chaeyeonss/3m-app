@@ -266,13 +266,17 @@
                 android:id="@+id/reward_header_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="등급" />
+                android:text="등급"
+                android:textColor="#3674AD"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/reward_header_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="리워드" />
+                android:text="리워드"
+                android:textColor="#3674AD"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
