@@ -1,11 +1,15 @@
 package com.example.apptest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,13 +18,56 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    Button btncamera = findViewById(R.id.btn_camera);
-    btncamera.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(MainActivity.this, camera.class);
-            startActivity(intent);
-        }
-    });
+        ImageButton arrow_camera_card = findViewById(R.id.CameraCardArrow);
+        ImageView view_camera = findViewById(R.id.CameraView);
+
+        arrow_camera_card.setOnClickListener(view -> {
+            int flag = view_camera.getVisibility();
+            switch (flag) {
+                case View.VISIBLE: {
+                    view_camera.setVisibility(View.GONE);
+                    arrow_camera_card.setImageResource(R.drawable.arrow_down);
+                    return;
+                }
+                case View.GONE: {
+                    view_camera.setVisibility(View.VISIBLE);
+                    arrow_camera_card.setImageResource(R.drawable.arrow_up);
+                    return;
+                }
+            }
+
+        });
+
+        TextView cameraCardTitle = (TextView) findViewById(R.id.CameraCardTitle);
+        ImageView cameraView = (ImageView) findViewById(R.id.CameraView);
+
+
+
+
+        CardView catchCard = findViewById(R.id.CatchCard);
+        catchCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickCatchCard(view);
+            }
+        });
+
+        CardView reportedCard = findViewById(R.id.ReportedCard);
+        reportedCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickReportedCard(view);
+            }
+        });
+    }
+
+    public void clickCatchCard(View view){
+        Intent intent = new Intent(this, ActiveReports.class);
+        startActivity(intent);
+    }
+
+    public void clickReportedCard(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

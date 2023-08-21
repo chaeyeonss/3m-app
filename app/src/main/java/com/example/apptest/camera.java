@@ -26,16 +26,13 @@ import java.util.concurrent.TimeUnit;
 
 public class camera extends AppCompatActivity {
 
-    // 회원 ID
-     private String memberId;
-
     // 서버 URL (가정)
     private static final String SERVER_URL = "서버 url";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera);
 
         // OCR 처리를 통해 번호판, 위치, 시간 정보 가정
 
@@ -44,7 +41,8 @@ public class camera extends AppCompatActivity {
         String time = "2023-07-30 12:34:56";
 
         Intent intent = getIntent();
-        memberId = intent.getStringExtra("MemberID");
+        // 회원 ID
+        String memberId = intent.getStringExtra("MemberID");
 
         // 30분
         PeriodicWorkRequest periodicWorkRequest =
@@ -56,7 +54,7 @@ public class camera extends AppCompatActivity {
 
     public static class MyWorker extends Worker {
 
-        private String memberId;
+        private final String memberId;
 
         public MyWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
             super(context, workerParams);
@@ -91,37 +89,31 @@ public class camera extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Log.d("memberId", memberId);
-            Log.d("licensePlate", licensePlate);
-            Log.d("location", location);
-            Log.d("time", time);
+            Log.d("memberId", "memberId");
+            Log.d("licensePlate", "licensePlate");
+            Log.d("location", "location");
+            Log.d("time", "time");
             // Volley Request Queue 생성
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
             // 서버로 보낼 POST 요청 생성
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, SERVER_URL, requestData,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                // 서버로부터 받은 응답 데이터 처리
-                                String serverResponse = response.getString("success");
-                                // 예를 들어, 서버에서 "success"라는 메시지를 받았을 때 성공적으로 전송된 것으로 간주할 수 있습니다.
-                                if (serverResponse.equals("success")) {
-                                    // 전송 성공 부분
-                                } else {
-                                    // 전송 실패 부분
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                    response -> {
+                        try {
+                            // 서버로부터 받은 응답 데이터 처리
+                            String serverResponse = response.getString("success");
+                            // 예를 들어, 서버에서 "success"라는 메시지를 받았을 때 성공적으로 전송된 것으로 간주할 수 있습니다.
+                            if (serverResponse.equals("success")) {
+                                // 전송 성공 부분
+                            } else {
+                                // 전송 실패 부분
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // 서버 통신 실패 (생략)
-                        }
+                    error -> {
+                        // 서버 통신 실패 (생략)
                     });
 
             // Request Queue에 요청 추가

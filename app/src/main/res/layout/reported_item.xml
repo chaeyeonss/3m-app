@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:weightSum="11"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/no"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:paddingHorizontal="8dp"
+        android:textAlignment="center"
+        android:text="1"
+        android:textSize="12sp"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4.5"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="2dp"
+        android:weightSum="10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/first_reported"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:text="HH:MM:ss"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/reported_address"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:text="충청남도 아산시 중앙로 17"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/second_reported"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="8dp"
+        android:layout_weight="2"
+        android:text="hH:MM:ss"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/car_num"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="8dp"
+        android:layout_weight="2"
+        android:text="12모3456"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/report_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="10dp"
+        android:text="승인"
+        android:textSize="12sp" />
+
+    <ImageButton
+        android:id="@+id/btn_more"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_weight="1"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="10dp"
+        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+
+</LinearLayout>
