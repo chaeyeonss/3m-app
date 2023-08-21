@@ -13,16 +13,17 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_width="346dp"
+        android:layout_height="43dp"
         android:backgroundTint="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:title="회원가입"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/et_unique"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/et_unique"/>
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="회원가입" />
 
     <EditText
         android:id="@+id/et_unique"
@@ -115,6 +116,19 @@
         app:layout_constraintTop_toBottomOf="@id/et_area"
         app:layout_constraintBottom_toTopOf="@id/et_pass"/>
 
+    <CheckBox
+        android:id="@+id/passcheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="확인"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_age"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toEndOf="@+id/et_passcheck"
+        app:layout_constraintTop_toBottomOf="@+id/et_pass"
+        app:layout_constraintVertical_bias="0.6" />
+
     <EditText
         android:id="@+id/et_pass"
         android:layout_width="match_parent"
@@ -124,7 +138,7 @@
         android:ems="10"
         android:paddingHorizontal="20dp"
         android:hint="비밀번호 입력"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,19 +147,33 @@
 
     <EditText
         android:id="@+id/et_passcheck"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="256dp"
+        android:layout_height="52dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/square_background_border_black"
         android:ems="10"
-        android:paddingHorizontal="20dp"
         android:hint="비밀번호 확인"
-        android:inputType="text"
+        android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/et_age"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_pass" />
+
+    <EditText
+        android:id="@+id/et_age"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/square_background_border_black"
+        android:ems="10"
+        android:hint="나이 입력"
+        android:inputType="text"
+        android:paddingHorizontal="20dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_pass"
-        app:layout_constraintBottom_toTopOf="@id/et_account" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_passcheck" />
 
     <EditText
         android:id="@+id/et_account"
@@ -154,31 +182,43 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/square_background_border_black"
         android:ems="10"
-        android:paddingHorizontal="20dp"
         android:hint="계좌번호 입력"
         android:inputType="text"
+        android:paddingHorizontal="20dp"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_passcheck" />
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_age" />
+
+    <EditText
+        android:id="@+id/et_carnumber"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/square_background_border_black"
+        android:ems="10"
+        android:hint="차량번호 입력"
+        android:inputType="text"
+        android:paddingHorizontal="20dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_account" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:backgroundTint="#82C3FF"
         android:paddingHorizontal="16dp"
         android:paddingVertical="10dp"
         android:text="회원가입"
         android:textSize="16sp"
-        android:backgroundTint="#82C3FF"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-
-
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
