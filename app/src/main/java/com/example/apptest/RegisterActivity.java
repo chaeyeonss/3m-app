@@ -34,9 +34,13 @@ import java.net.URL;
 
 public class RegisterActivity extends AppCompatActivity {
 
+<<<<<<< HEAD
     private EditText etId, etPass, etAge, etAccount, etcarnumber ,etUnique, etName, etRegistration, etArea, etpasscehck ;
 
     private boolean servercheck;
+=======
+    private EditText etId, etPass, etPassCheck, etAccount, etUnique, etName, etRegistration, etArea;
+>>>>>>> 03490e12f29232cbced10504fc11c19846542bbe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
         etRegistration = findViewById(R.id.et_registration);
         etArea = findViewById(R.id.et_area);
         CheckBox checkBox = findViewById(R.id.checkbox);
+<<<<<<< HEAD
         CheckBox PassCheckBox = findViewById(R.id.passcheckbox);
+=======
+>>>>>>> 03490e12f29232cbced10504fc11c19846542bbe
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -139,6 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+<<<<<<< HEAD
     private boolean isValidInput(String password) {
         // 비밀번호가 8글자 이상인지 확인
         if (password.length() < 8) {
@@ -171,6 +179,10 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(RegisterActivity.this, "대문자 1개 포함", Toast.LENGTH_SHORT).show();
             return false;
         }
+=======
+    private boolean isValidInput() {
+        // 입력된 정보의 유효성 검사 로직을 추가 (비밀번호 유효성 추가하기)
+>>>>>>> 03490e12f29232cbced10504fc11c19846542bbe
 
         return true;
     }
@@ -193,6 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
         return jsonObject;
     }
 
+<<<<<<< HEAD
     //데이터 서버 전송 부분
     private void sendSignUpDataToServer(@NonNull JSONObject signUpData) {
         new Thread(new Runnable() {
@@ -255,6 +268,27 @@ public class RegisterActivity extends AppCompatActivity {
                         } else {
                             // 중복된 아이디가 없습니다.
                             // 여기서는 특별한 처리를 하지 않습니다.
+=======
+    private void sendSignUpDataToServer(JSONObject signUpData) {
+        // 서버 URL 넣기
+        String serverUrl = "http://www.univ237.com/Login.php";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, serverUrl, signUpData,
+                response -> {
+                    // 서버 응답 처리
+                    try {
+                        boolean success = response.getBoolean("success");
+                        String message = response.getString("message");
+
+                        if (success) {
+                            // 회원가입 성공
+                            Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                            // 회원가입 성공 시의 처리 추가
+                        } else {
+                            // 회원가입 실패
+                            Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                            // 회원가입 실패 시의 처리 추가
+>>>>>>> 03490e12f29232cbced10504fc11c19846542bbe
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -262,7 +296,11 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 },
                 error -> {
+<<<<<<< HEAD
                     // 오류 처리
+=======
+                    // 에러 처리
+>>>>>>> 03490e12f29232cbced10504fc11c19846542bbe
                     Toast.makeText(RegisterActivity.this, "서버 통신 오류", Toast.LENGTH_SHORT).show();
                 });
 
