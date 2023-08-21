@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-=======
     android:paddingTop="24dp"
     android:background="@drawable/main_background"
->>>>>>> 03490e12f29232cbced10504fc11c19846542bbe
     tools:context=".ActiveReports"
     android:orientation="vertical">
 
