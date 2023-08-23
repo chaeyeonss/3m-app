@@ -47,7 +47,7 @@
         android:ems="10"
         android:paddingHorizontal="20dp"
         android:hint="비밀번호"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/et_id"
         app:layout_constraintHorizontal_bias="0.0"

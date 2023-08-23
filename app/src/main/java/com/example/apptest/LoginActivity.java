@@ -33,56 +33,53 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // 회원가입 버튼을 클릭 시 수행
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        btn_register.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // EditText에 현재 입력되어있는 값을 get(가져온다)해온다.
-                String MemberID = id.getText().toString();
-                String Password = pwd.getText().toString();
+        btn_login.setOnClickListener(view -> {
+            // EditText에 현재 입력되어있는 값을 get(가져온다)해온다.
+            String MemberID = id.getText().toString();
+            String Password = pwd.getText().toString();
 
-                Log.i("[로그인]", MemberID + " " + Password);
-                Response.Listener<String> responseListener = response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean success = jsonObject.getBoolean("success");
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Toast.makeText(getApplicationContext(),"Hello, user185!",Toast.LENGTH_SHORT).show();
+            startActivity(intent);
 
-                        Log.i("[로그인]", MemberID + " " + Password);
-                        Toast.makeText(getApplicationContext(),String.format("%s, %s", MemberID, Password),Toast.LENGTH_SHORT).show();
+            Response.Listener<String> responseListener = response -> {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("message");
 
-                        if (success) { // 로그인에 성공한 경우
-                            String MemberID1 = jsonObject.getString("MemberID");
-                            String Password1 = jsonObject.getString("Password");
-                            String Name = jsonObject.getString("Name");
+                    Log.i("[로그인]", MemberID + " " + Password);
+                    Toast.makeText(getApplicationContext(),String.format("%s, %s", MemberID, Password),Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(getApplicationContext(), String.format("%s님 환영합니다.", Name), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    if (success) { // 로그인에 성공한 경우
+                        String MemberID1 = jsonObject.getString("MemberID");
+                        String Password1 = jsonObject.getString("Password");
+                        String Name = jsonObject.getString("Name");
 
-                            intent.putExtra("MemberID", MemberID1);
-                            intent.putExtra("Password", Password1);
-                            intent.putExtra("Name", Name);
+                        //Toast.makeText(getApplicationContext(), String.format("%s님 환영합니다.", Name), Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                            startActivity(intent);
+                        //intent.putExtra("MemberID", MemberID1);
+                        //intent.putExtra("Password", Password1);
+                        //intent.putExtra("Name", Name);
 
-                        } else { // 로그인에 실패한 경우
-                            Toast.makeText(getApplicationContext(),"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        //startActivity(intent);
+
+                    } else { // 로그인에 실패한 경우
+                        Toast.makeText(getApplicationContext(),"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                };
-                LoginRequest loginRequest = new LoginRequest(MemberID, Password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                queue.add(loginRequest);
-            }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            };
+            LoginRequest loginRequest = new LoginRequest(MemberID, Password, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+            queue.add(loginRequest);
         });
     }
 }
