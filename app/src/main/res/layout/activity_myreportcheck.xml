@@ -34,7 +34,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/reported_detail">
+        app:layout_constraintBottom_toTopOf="@id/reported_detail"
+        android:dividerHeight="2dp">
 
     </ListView>
 
@@ -156,30 +157,7 @@
                         android:layout_weight="1"
                         android:text="" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:weightSum="10"
-                        android:gravity="center_vertical"
-                        android:visibility="invisible">
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:tooltipText="차량 번호가 사진과 맞지 않다면"
-                            android:backgroundTint="@android:color/transparent"
-                            app:srcCompat="@drawable/ic_for_car_warning_24" />
-                        <TextView
-                            android:id="@+id/reported_wrong_car"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="9"
-                            android:layout_marginStart="5dp"
-                            android:text="사진과 차량번호가 일치하지 않다면"
-                            android:textSize="10sp"
-                            android:textColor="#FF7456"/>
-                    </LinearLayout>
+
 
 
                 </LinearLayout>
@@ -189,7 +167,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text=""
+                    android:textColor="#50A50D"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/reported_detail_reward"
