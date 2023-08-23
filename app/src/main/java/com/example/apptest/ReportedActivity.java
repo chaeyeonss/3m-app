@@ -1,32 +1,24 @@
 package com.example.apptest;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageButton;
-import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ActiveReports extends AppCompatActivity {
+public class ReportedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myreportcheck);
+        setContentView(R.layout.activity_mycarreportcheck);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("내가 신고한 내역");
+        getSupportActionBar().setTitle("내 차 신고된 내역");
+
 
         //Intent intent = getIntent();
 
@@ -75,4 +67,5 @@ public class ActiveReports extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

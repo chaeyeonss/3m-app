@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="24dp"
     android:background="@drawable/main_background"
-    tools:context=".ActiveReports"
+    tools:context=".ReportedActivity"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
