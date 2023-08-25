@@ -3,8 +3,13 @@ package com.example.apptest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -31,6 +36,9 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Member;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -121,7 +129,8 @@ public class RegisterActivity extends AppCompatActivity {
                         startActivity(intentlogin);
                     } else {
                         Toast.makeText(RegisterActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
-                    }
+                    }   Intent intentlogin2 = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(intentlogin2);
                 } else {
 
                 }
@@ -194,7 +203,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return jsonObject;
     }
-
 
     private void sendSignUpDataToServer(@NonNull JSONObject signUpData) { // 만들어진 Json 데이터 받아서 서버로 전달하는 부분
         new Thread(new Runnable() {
