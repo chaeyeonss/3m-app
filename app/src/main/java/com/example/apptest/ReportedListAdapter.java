@@ -1,6 +1,7 @@
 package com.example.apptest;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,12 +11,14 @@ import java.util.List;
 
 public class ReportedListAdapter extends BaseAdapter {
 
-    private Context context;
+    private Context context = null;
+    LayoutInflater mLayoutInflater = null;
     private List<ReportedItem> reportedItemList;
 
     public ReportedListAdapter(Context context, List<ReportedItem> reportedItemList){
         this.context = context;
         this.reportedItemList = reportedItemList;
+        mLayoutInflater = LayoutInflater.from(this.context);
     }
 
     @Override
@@ -24,7 +27,7 @@ public class ReportedListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public ReportedItem getItem(int i) {
         return reportedItemList.get(i);
     }
 
@@ -36,8 +39,10 @@ public class ReportedListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        View v = View.inflate(context, R.layout.reported_item, null);
+        View v = mLayoutInflater.inflate(R.layout.reported_item, null);
 
+
+        TextView no = (TextView) v.findViewById(R.id.no);
         TextView reportedDate = (TextView) v.findViewById(R.id.first_reported);
         TextView reportedAddress = (TextView) v.findViewById(R.id.reported_address);
         TextView secondReported = (TextView) v.findViewById(R.id.second_reported);
@@ -52,8 +57,10 @@ public class ReportedListAdapter extends BaseAdapter {
 
         //v.setTag(reportedItemList.get(i).getId());
 
+        no.setText(reportedItemList.get(i).getUniqNum());
         reportedDate.setText(reportedItemList.get(i).getDate());
-        reportedAddress.setText("주소 위치");
+        reportedAddress.setText(reportedItemList.get(i).getLongitube());
+        secondReported.setText(reportedItemList.get(i).getLatitude());
         secondReported.setText(reportedItemList.get(i).getDate());
         reportedCar.setText(reportedItemList.get(i).getCarNum());
         reportedStatus.setText(reportedItemList.get(i).getReportStatus());
