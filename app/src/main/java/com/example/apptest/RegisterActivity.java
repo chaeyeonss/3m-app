@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etId, etPass, etAge, etAccount, etcarnumber, etUnique, etName, etRegistration, etArea, etpasscehck;
 
-    private boolean servercheck;
+    boolean servercheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,9 +121,9 @@ public class RegisterActivity extends AppCompatActivity {
                         startActivity(intentlogin);
                     } else {
                         Toast.makeText(RegisterActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
+                        Intent intentlogin = new Intent(RegisterActivity.this, LoginActivity.class); //임시로 실패해도 넘어가도록 설정
+                        startActivity(intentlogin);
                     }
-                } else {
-
                 }
             }
         });
@@ -216,8 +216,8 @@ public class RegisterActivity extends AppCompatActivity {
                     int responseCode = connection.getResponseCode();
 
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        Log.d("HTTP_RESPONSE", "Request successful");
                         servercheck = true;
+                        Log.d("HTTP_RESPONSE", "Request successful");
                     } else {
                         Log.e("HTTP_RESPONSE", "Request failed with code: " + responseCode);
                         servercheck = false;
