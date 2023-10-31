@@ -116,13 +116,9 @@ public class RegisterActivity extends AppCompatActivity {
                     sendSignUpDataToServer(signUpData); // 저장된 변수를 매개변수로 사용
 
                     if (servercheck) {
-                        Toast.makeText(RegisterActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
-                        Intent intentlogin = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intentlogin);
+
                     } else {
-                        Toast.makeText(RegisterActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
-                        Intent intentlogin = new Intent(RegisterActivity.this, LoginActivity.class); //임시로 실패해도 넘어가도록 설정
-                        startActivity(intentlogin);
+
                     }
                 }
             }
@@ -215,13 +211,25 @@ public class RegisterActivity extends AppCompatActivity {
 
                     int responseCode = connection.getResponseCode();
 
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        servercheck = true;
-                        Log.d("HTTP_RESPONSE", "Request successful");
-                    } else {
-                        Log.e("HTTP_RESPONSE", "Request failed with code: " + responseCode);
-                        servercheck = false;
-                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (responseCode == HttpURLConnection.HTTP_CREATED) {
+                                Log.d("HTTP_RESPONSE", "Request successful");
+
+                                Toast.makeText(RegisterActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
+                                Intent intentlogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intentlogin);
+
+                            } else {
+                                Log.e("HTTP_RESPONSE", "Request failed with code: " + responseCode);
+
+                                Toast.makeText(RegisterActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
+                                Intent intentlogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intentlogin);
+                            }
+                        }
+                    });
 
                     connection.disconnect(); // 연결 종료
 

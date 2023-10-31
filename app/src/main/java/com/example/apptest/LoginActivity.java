@@ -2,6 +2,7 @@ package com.example.apptest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -24,6 +25,9 @@ import java.net.URL;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private String username;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +53,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Retrieve input values
-                String username = id.getText().toString();
-                String password = pwd.getText().toString();
+                username = id.getText().toString();
+                password = pwd.getText().toString();
 
                 // Basic validation
                 if (username.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "공백 불가", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("MemberID", username);
-                editor.putString("Password", password);
-                editor.apply();
 
                 try {
                     JSONObject signInData = new JSONObject();
@@ -116,6 +114,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         Log.d("HTTP_RESPONSE", "Request successful");
+
+                        //로그인 성공 시 입력한 name, password 저장
+                        SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("MemberID", username);
+                        editor.putString("Password", password);
+                        editor.apply();
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
