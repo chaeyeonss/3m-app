@@ -22,6 +22,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements Camera2APIs.Camer
 
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
-
     private TextureView mTextureView;
     private Camera2APIs mCamera;
 
@@ -39,6 +40,14 @@ public class MainActivity extends AppCompatActivity implements Camera2APIs.Camer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // SharedPreferences에서 MemberID 값을 가져옴
+        SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        String savedMemberID = preferences.getString("MemberID", "");
+
+        // 가져온 MemberID 값을 화면에 출력
+        TextView homeUserText = findViewById(R.id.HomeUserText);
+        homeUserText.setText("Hello, " + savedMemberID + "!");
 
         //if (allPermissionsGranted()){
         //    startCamera(); // 회원 확인됐으면 카메라 시작
@@ -89,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements Camera2APIs.Camer
         String cameraId = mCamera.CameraCharacteristics_2(cameraManager);
         mCamera.CameraDevice_3(cameraManager, cameraId);
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
