@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private String username;
     private String password;
+    private String fcm_token;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,104 +64,51 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                try {
-                    JSONObject signInData = new JSONObject();
-                    signInData.put("MemberID", username);
-                    signInData.put("Password", password);
-
-                    sendSignInDataToServer(signInData);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
                 // FirebaseMessaging을 사용하여 FCM 토큰을 받아오고 서버로 전송하는 부분 추가
-//                FirebaseMessaging.getInstance().getToken()
-//                        .addOnCompleteListener(task -> {
-//                            if (!task.isSuccessful()) {
-//                                // 토큰 얻어오기 실패
-//                                Log.w("FCM_TOKEN", "Fetching FCM registration token failed", task.getException());
-//                                return;
-//                            }
-//
-//                            // 토큰 얻어오기 성공
-//                            String token = task.getResult();
-//                            Log.d("FCM_TOKEN", "FCM token: " + token);
-//
-//                            // 토큰을 서버로 전달하는 AsyncTask 실행
-//                            new SendTokenToServerTask(username, password).execute(token);
-//
-//                        });
+                FirebaseMessaging.getInstance().getToken()
+                        .addOnCompleteListener(task -> {
+                            if (!task.isSuccessful()) {
+                                // 토큰 얻어오기 실패
+                                Log.w("FCM_TOKEN", "Fetching FCM registration token failed", task.getException());
+                                return;
+                            }
+                            // 토큰 얻어오기 성공
+                            fcm_token = task.getResult();
+                            Log.d("FCM_TOKEN", "FCM token: " + fcm_token);
+
+                            // 토큰을 서버로 전달하는 AsyncTask 실행
+                            new SendTokenToServerTask().execute(fcm_token);
+                            boolean isSuccess = MyFirebaseMessagingService.getSuccess();
+
+                            if(!isSuccess){ // 임시로 넘어가도록 설정한거임 MyFirevaseMessagingService에서 요청 성공하면 LoginActivity 메인으로 넘어가도록 해야하는데 자꾸 false값만 받아옴 왜 why how 어떻게 해야하는지 모르겠음;
+                                SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("MemberID", username);
+                                editor.putString("Password", password);
+                                editor.apply();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                            }
+                        });
             }
         });
     }
 
-    private void sendSignInDataToServer(JSONObject signInData) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL("http://10.0.2.2:8000/user/signin");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("POST"); // POST 형식으로 전송
-                    connection.setDoOutput(true);
-                    connection.setRequestProperty("Content-Type", "application/json; utf-8");
+    //AsyncTask를 사용하여 FCM 토큰을 서버로 전송하는 역할을 하는 클래스
+    private class SendTokenToServerTask extends AsyncTask<String, Void, Void> {
 
-                    String jsonData = signInData.toString();
-                    try (OutputStream os = connection.getOutputStream()) {
-                        byte[] input = jsonData.getBytes("utf-8");
-                        os.write(input, 0, input.length);
-                    }
-
-                    int responseCode = connection.getResponseCode();
-
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        Log.d("HTTP_RESPONSE", "Request successful");
-
-                        //로그인 성공 시 입력한 name, password 저장
-                        SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("MemberID", username);
-                        editor.putString("Password", password);
-                        editor.apply();
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                    } else {
-                        Log.e("HTTP_RESPONSE", "Request failed with code: " + responseCode);;
-
-                    }
-
-                    connection.disconnect(); // 연결 종료
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e("HTTP_RESPONSE", "Connection failed: " + e.getMessage()); // 추가된 부분
-                }
-            }
-        }).start();
+        @Override
+        protected Void doInBackground(String... tokens) {
+            String token = tokens[0];
+            MyFirebaseMessagingService messagingService = new MyFirebaseMessagingService();
+            messagingService.createUserAndSendToken(token, username, password);
+            return null;
+        }
     }
-
-    // AsyncTask를 사용하여 FCM 토큰을 서버로 전송하는 역할을 하는 클래스
-//    private class SendTokenToServerTask extends AsyncTask<String, Void, Void> {
-//        private String username;
-//        private String password;
-//
-//        SendTokenToServerTask(String username, String password) {
-//            this.username = username;
-//            this.password = password;
-//        }
-//
-//        @Override
-//        protected Void doInBackground(String... tokens) {
-//            String token = tokens[0];
-//            MyFirebaseMessagingService messagingService = new MyFirebaseMessagingService();
-//            messagingService.createUserAndSendToken(token, username, password);
-//            return null;
-//        }
-//    }
 }
