@@ -3,7 +3,6 @@ package com.example.apptest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -27,31 +26,33 @@ import java.net.URL;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private SharedPreferences preferences;
-    private String memberId;
+    private String MemberID;
     private String password;
+    private static boolean success = false;
 
+    public static boolean getSuccess() {
+        return success;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
         preferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        memberId = preferences.getString("MemberID", null);
+        MemberID = preferences.getString("MemberID", null);
         password = preferences.getString("Password", null);
     }
 
-
-
     public class User {
 
-        private String menberID;
+        private String MemberID;
         private String password;
         private String fcm_token;
 
-        public String getMenberID() {
-            return menberID;
+        public String getMemberID() {
+            return MemberID;
         }
 
-        public void setMenberID(String menberID) {
-            this.menberID = menberID;
+        public void setMemberID(String MenberID) {
+            this.MemberID = MenberID;
         }
 
         public String getPassword() {
@@ -73,12 +74,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     // FCM 토큰이 생성될 때 호출되는 메서드
     @Override
-    public void onNewToken(String token) {
-        super.onNewToken(token);
-        Log.d("FCM_TOKEN", token); // 토큰 출력
+    public void onNewToken(String fcm_token) {
+        super.onNewToken(fcm_token);
+        Log.d("FCM_TOKEN", fcm_token); // 토큰 출력
 
         // 사용자 정보 생성 및 토큰 서버로 전달
-        createUserAndSendToken(token, memberId, password);
+        createUserAndSendToken(fcm_token, MemberID, password);
     }
 
     // FCM 메시지 수신 시 호출되는 메서드
@@ -119,29 +120,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     // 백그라운드에서 사용자 정보와 토큰을 서버로 전송하는 AsyncTask
-    private static class SendUserAndTokenTask extends AsyncTask<User, Void, Void> {
+    private class SendUserAndTokenTask extends AsyncTask<User, Void, Void> {
+
         @Override
         protected Void doInBackground(User... users) {
             User user = users[0];
-            sendUserAndTokenToServer(user);
+            sendUserAndTokenToServer(user, success);
             return null;
         }
     }
 
     // 사용자 정보 생성 및 토큰 전송 함수
-    void createUserAndSendToken(String token, String MemberId, String Password) {
-        // 사용자 정보 생성 (실제로는 사용자 입력 폼에서 데이터 가져와야 함)
+    void createUserAndSendToken(String fcm_token, String MemberID, String Password) {
         User user = new User();
-        user.setMenberID(MemberId);
+        user.setMemberID(MemberID);
         user.setPassword(Password);
-        user.setFcm_token(token);
+        user.setFcm_token(fcm_token);
 
         // 사용자 정보와 토큰 서버로 전송
         new SendUserAndTokenTask().execute(user);
     }
 
     // 사용자 정보와 토큰을 서버로 전송하는 함수
-    private static void sendUserAndTokenToServer(User user) {
+    private static void sendUserAndTokenToServer(User user, boolean success) {
         try {
             URL url = new URL("http://10.0.2.2:8000/user/signin"); // Django 서버의 엔드포인트 URL
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -160,14 +161,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // 응답 코드 확인
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
+                Log.e("FCM_TOKEN", "Request success: " + responseCode);
                 // 요청이 성공적으로 처리됨
                 Log.d("FCM_TOKEN", "User and token sent to server");
+                success = true;
+
             } else {
                 // 요청이 실패한 경우
                 Log.e("FCM_TOKEN", "Failed to send user and token to server");
+                Log.e("FCM_TOKEN", "Request failed: " + responseCode);
+                success = false;
+
             }
         } catch (IOException e) {
             e.printStackTrace();
+            success = false;
         }
     }
 
@@ -176,7 +184,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // 사용자 정보를 JSON 문자열로 변환하여 반환
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("MenberID", user.getMenberID());
+            jsonObject.put("MemberID", user.getMemberID());
             jsonObject.put("Password", user.getPassword());
             jsonObject.put("fcm_token", user.getFcm_token());
         } catch (JSONException e) {
