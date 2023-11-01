@@ -4,346 +4,345 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".myreportcheck"
+    android:paddingTop="24dp"
+    android:background="@drawable/main_background"
+    tools:context=".ReportedActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:gravity="bottom"
-        android:layout_width="412dp"
-        android:layout_height="115dp"
-        android:background="#673AB7"
-        android:textSize="20sp"
-        android:textColor="#000000"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginHorizontal="32dp"
+        android:backgroundTint="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="내 차 신고된 내역"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/reported_table"/>
+
+
+    <ListView
+        android:id="@+id/reported_table"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="10dp"
+        android:divider="#d1d1d1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/reported_detail"
+        android:dividerHeight="2dp">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="16dp"
-        android:text="나의 차량 신고 내역"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+    </ListView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/reported_detail"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#EEF4FF"
+        app:layout_constraintBottom_toTopOf="@+id/detail_photo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reported_table">
 
-    <!-- 표를 나타낼 TableLayout -->
-    <TableLayout
-        android:id="@+id/tableLayout"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="18dp"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:id="@+id/reported_detail_headers"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:weightSum="4">
+
+
+                <TextView
+                    android:id="@+id/reported_date_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="신고 접수일"
+                    android:textSize="14sp"
+                    android:textColor="#3674AD"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reported_address_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="주정차 위치"
+                    android:textSize="14sp"
+                    android:textColor="#3674AD"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reported_car_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:text="진행 상태"
+                    android:textSize="14sp"
+                    android:textColor="#3674AD"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reported_detail_contents"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="31dp"
+                android:layout_weight="7"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/reported_detail_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/reported_detail_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/reported_detail_car"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="#50A50D"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:weightSum="10"
+                        android:gravity="center_vertical">
+                        <ImageButton
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:tooltipText="차량 번호가 사진과 맞지 않다면"
+                            android:backgroundTint="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_for_car_warning_24" />
+                        <TextView
+                            android:id="@+id/reported_wrong_car"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="9"
+                            android:layout_marginStart="5dp"
+                            android:text="사진과 차량번호가 일치하지 않다면"
+                            android:textSize="10sp"
+                            android:textColor="#FF7456"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/detail_photo"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/reported_detail"
+        app:layout_constraintBottom_toTopOf="@id/report_btns"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:weightSum="10"
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9"
+                app:cardCornerRadius="16dp"
+                android:background="#4D1F1F1F">
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="최초 신고 사진"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:weightSum="10"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="9"
+                app:cardCornerRadius="16dp"
+                android:background="#4D1F1F1F">
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="2차 신고 사진"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/report_btns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="220dp"
-        android:background="@drawable/square_background_border_black"
-        android:stretchColumns="*"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="32dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintTop_toBottomOf="@id/detail_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btn_check_photo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:layout_marginEnd="5dp"
+            android:clickable="false"
+            android:text="과태료 납부"
+            android:textSize="14sp"
+            android:backgroundTint="#82C3FF"/>
+
+        <Button
+            android:id="@+id/btn_check_paper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:layout_marginStart="5dp"
+            android:clickable="false"
+            android:text="이의 신청"
+            android:textSize="14sp"
+            android:backgroundTint="#3674AD"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reward_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="18dp"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:background="@drawable/bg_reward_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/inside_color"
-                android:gravity="center"
-                android:text="신고자ID"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/inside_color"
-                android:gravity="center"
-                android:text="신고 날짜"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                android:id="@+id/reward_header_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="등급"
+                android:textColor="#3674AD"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/inside_color"
-                android:gravity="center"
-                android:text="접수 상태"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                android:id="@+id/reward_header_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="리워드"
+                android:textColor="#3674AD"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
+                android:id="@+id/txt_grade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="도로 위 명탐정" />
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
+                android:id="@+id/txt_reward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="65,300" />
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="리워드 출금"
+            android:backgroundTint="#FAC266"/>
+    </LinearLayout>
 
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:background="@drawable/tabel_inside"
-                android:gravity="center"
-                android:text=""
-                android:textSize="18sp" />
-
-
-        </TableRow>
-
-    </TableLayout>
-
-    <Button
-        android:id="@+id/btn_home"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
-        android:text="홈으로 돌아가기"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tableLayout"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="이의 신청"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
