@@ -91,28 +91,30 @@ public class ActiveReports extends AppCompatActivity {
 
         // reference -> https://kyhslam.tistory.com/entry/Java-HTTP-%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C-POST-%ED%86%B5%EC%8B%A0
         String inputMemberID = "user1"; // 현재 로그인 유저로 변경
-        String urls = "http://127.0.0.1:8000/reportcheck/myreport";
+        String urls = "http://10.0.2.2:8080/reportcheck/myreport";
 
-        try {
-            URL url = new URL(urls);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        new Thread(()-> {
+            try {
+                URL url = new URL(urls);
+                //Log.d("teeeeeeest", String.valueOf(url));
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            // HTTP POST 설정
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setDoOutput(true);
+                // HTTP POST 설정
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setDoOutput(true);
 
-            // JSON 데이터 생성
-            JSONObject jsonRequest = new JSONObject();
-            jsonRequest.put("MemberID", "user1");
+                // JSON 데이터 생성
+                JSONObject jsonRequest = new JSONObject();
+                jsonRequest.put("MemberID", "user1");
 
-            // JSON 데이터 전송
-            OutputStream os = connection.getOutputStream();
-            Log.e("Debug", os.toString());
+                // JSON 데이터 전송
+                OutputStream os = connection.getOutputStream();
+                Log.e("Debug", os.toString());
 //            os.write(jsonRequest.toString().getBytes("UTF-8"));
 //            os.close();
 
-            // HTTP 응답 코드 확인
+                // HTTP 응답 코드 확인
 //            int responseCode = connection.getResponseCode();
 //            if (responseCode == HttpURLConnection.HTTP_OK) {
                 // JSON 응답 읽기
@@ -150,10 +152,12 @@ public class ActiveReports extends AppCompatActivity {
 //            } else {
 //                System.out.println("API 요청 실패: " + responseCode);
 //            }
-        } catch (Exception e) {
-            reportedList.add(new ReportedItem("2023.07.12. 17:32:33","17:38:20","충청남도 아산시 중앙로 17","12모3456","1","8,000","승인"));
-            e.printStackTrace();
-        }
+            } catch (Exception e) {
+                reportedList.add(new ReportedItem("2023.07.12. 17:32:33","17:38:20","충청남도 아산시 중앙로 17","12모3456","1","8,000","승인"));
+                e.printStackTrace();
+            }
+        }).start();
+
 //        reportedList.add(new ReportedItem("2023.07.12. 17:32:33","17:38:20","충청남도 아산시 중앙로 17","12모3456","1","8,000","승인"));
 //        reportedList.add(new ReportedItem("2023.07.22. 13:02:58","13:10:03","충청남도 아산시 순천향로","34가5421","2","-","반려"));
 //        reportedList.add(new ReportedItem("2023.07.29. 22:00:07","22:05:28","서울시 마포구 월드컵북로","64길7869","3","8,000","승인"));
