@@ -13,6 +13,8 @@ import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
@@ -41,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements Camera2APIs.Camer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ConnectivityManager connectivityManager = getSystemService(ConnectivityManager.class);
+        Network currentNetwork = connectivityManager.getActiveNetwork();
+        TextView txtNetwork = findViewById(R.id.txt_network);
+        txtNetwork.setText(currentNetwork.toString());
+        Log.d("Network Info", currentNetwork.toString());
 
         // SharedPreferences에서 MemberID 값을 가져옴
         SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);

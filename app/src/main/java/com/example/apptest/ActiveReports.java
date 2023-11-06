@@ -96,6 +96,7 @@ public class ActiveReports extends AppCompatActivity {
         String savedMemberID = preferences.getString("MemberID", "");
         String urls = "http://10.0.2.2:8000/reportcheck/myreport";
 
+        Thread.currentThread().interrupt();
         new Thread(()-> {
             try {
                 URL url = new URL(urls);
@@ -159,6 +160,7 @@ public class ActiveReports extends AppCompatActivity {
                 e.printStackTrace();
             }
         }).start();
+
 
 //        reportedList.add(new ReportedItem("2023.07.12. 17:32:33","17:38:20","충청남도 아산시 중앙로 17","12모3456","1","8,000","승인"));
 //        reportedList.add(new ReportedItem("2023.07.22. 13:02:58","13:10:03","충청남도 아산시 순천향로","34가5421","2","-","반려"));
