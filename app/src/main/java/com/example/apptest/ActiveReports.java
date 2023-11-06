@@ -99,7 +99,6 @@ public class ActiveReports extends AppCompatActivity {
         new Thread(()-> {
             try {
                 URL url = new URL(urls);
-                Log.d("teeeeeeest", String.valueOf(url));
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 // HTTP POST 설정
@@ -117,7 +116,7 @@ public class ActiveReports extends AppCompatActivity {
                 os.write(jsonRequest.toString().getBytes(StandardCharsets.UTF_8));
                 os.close();
 
-                     //HTTP 응답 코드 확인
+                //HTTP 응답 코드 확인
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                      //JSON 응답 읽기
